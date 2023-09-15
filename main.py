@@ -51,8 +51,8 @@ def main():
     # Set labels and titles for subplots
     ax1.set(xlim=[-7000, 100000], xlabel="Today(Departure)", ylabel="Flights Countered", title=f"Departures Today ({datetime.today().strftime('%Y-%m-%d %H:%M:%S')}) (updates every 10s)")
     ax2.set(xlim=[-7000, 100000], xlabel="Today(Arrival)", ylabel="Flights Countered", title=f"Arrivals Today ({datetime.today().strftime('%Y-%m-%d %H:%M:%S')}) (updates every 10s)")
-    ax3.set_xlabel('X-axis Label')
-    ax3.set_ylabel('Y-axis Label')
+    ax3.set(ylabel="Number of Flights",
+               xlabel="(Busiest Hours for Departure/Arrival Flights) Today(" + datetime.today().strftime('%Y-%m-%d %H:%M:%S') + ") (updates every 10s)")
 
     # Initialize legend for ax3
     ax3.legend()

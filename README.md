@@ -62,3 +62,7 @@ If you would like to contribute to this project, please follow these steps:
 
 ## Acknowledgments
 - Special thanks to the Doha Hamad Airport for providing flight data through their web services.
+
+## Preview Image
+![Image Preview 1](images/preview1.png)
+![Image Preview 2](images/preview2.png)

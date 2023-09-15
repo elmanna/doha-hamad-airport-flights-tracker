@@ -32,13 +32,13 @@ def update_depart_plot(frame, fig, ax, queue):
         colors = np.random.uniform(1, 255, len(airlines))
         FlightsCountered = []
 
-        ax.clear()
 
         for airline in airlines:
             if airline == "busiestHours":
                 continue
             FlightsCountered.append(int(new_data[airline]["flightsCountered"]))
 
+        ax.clear()
         scatter = ax.scatter(airlines, FlightsCountered, marker='2', s=sizes, c='red', vmin=0, vmax=100)
 
         for label in airlines:
@@ -63,33 +63,37 @@ def update_depart_plot(frame, fig, ax, queue):
 
             description = description + (" -------Most Recent Departure-------" + "\n")
 
-            details = ["Flight Number", "Scheduled Time", "Actual Time Of Departure", "Flight Status",
-                       "Destination Country"]  # Order must meet the detailsValues
-            detailsValues = []
+            if(new_data[label]["recentDep"]):
+                details = ["Flight Number", "Scheduled Time", "Actual Time Of Departure", "Flight Status",
+                        "Destination Country"]  # Order must meet the detailsValues
+                detailsValues = []
 
-            detailsValues.append(new_data[label]["recentDep"]["flightNumber"])
+                detailsValues.append(new_data[label]["recentDep"]["flightNumber"])
+                
 
-            # Beginning of recent flight Scheduled Time
-            datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentDep"]["scheduledTime"]))
-            formatted_date_time = datetime_obj.strftime("%I:%M %p")
-            detailsValues.append(formatted_date_time)
-            # End of recent flight Scheduled Time
-
-            # Beginning of Actual Time Of Departure
-            try:
-                datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentDep"]["actualTimeOfDep"]))
+                # Beginning of recent flight Scheduled Time
+                datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentDep"]["scheduledTime"]))
                 formatted_date_time = datetime_obj.strftime("%I:%M %p")
                 detailsValues.append(formatted_date_time)
-            except:
-                detailsValues.append("N/A")
-            # End of Actual Time Of Departure
+                # End of recent flight Scheduled Time
 
-            detailsValues.append(new_data[label]["recentDep"]["lang"]["en"]["flightStatus"])
-            detailsValues.append(new_data[label]["recentDep"]["lang"]["en"]["destinationCountry"])
+                # Beginning of Actual Time Of Departure
+                try:
+                    datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentDep"]["actualTimeOfDep"]))
+                    formatted_date_time = datetime_obj.strftime("%I:%M %p")
+                    detailsValues.append(formatted_date_time)
+                except:
+                    detailsValues.append("N/A")
+                # End of Actual Time Of Departure
 
-            for index, d in enumerate(details):
-                description = description + (d + " : " + str(detailsValues[index]) + "\n")
+                detailsValues.append(new_data[label]["recentDep"]["lang"]["en"]["flightStatus"])
+                detailsValues.append(new_data[label]["recentDep"]["lang"]["en"]["destinationCountry"])
 
+                for index, d in enumerate(details):
+                    description = description + (d + " : " + str(detailsValues[index]) + "\n")
+
+            else:
+                description = description + (" No recent depature for today." + "\n")
             labels.append(description)
 
         mplcursors.cursor(scatter, hover=True).connect("add", lambda sel: sel.annotation.set_text(labels[sel.target.index]))
@@ -151,33 +155,36 @@ def update_arriv_plot(frame, fig, ax, queue):
 
             description = description + (" -------Most Recent Arrival-------" + "\n")
 
-            details = ["Flight Number", "Scheduled Time", "Actual Time Of Arrival", "Flight Status",
-                       "Origin Country"]  # Order must meet the detailsValues
-            detailsValues = []
+            if(new_data[label]["recentArri"]):
+                details = ["Flight Number", "Scheduled Time", "Actual Time Of Arrival", "Flight Status",
+                        "Origin Country"]  # Order must meet the detailsValues
+                detailsValues = []
 
-            detailsValues.append(new_data[label]["recentArri"]["flightNumber"])
+                detailsValues.append(new_data[label]["recentArri"]["flightNumber"])
 
-            # Beginning of recent flight Scheduled Time
-            datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentArri"]["scheduledTime"]))
-            formatted_date_time = datetime_obj.strftime("%I:%M %p")
-            detailsValues.append(formatted_date_time)
-            # End of recent flight Scheduled Time
-
-            # Beginning of Actual Time Of Departure
-            try:
-                datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentArri"]["actualTimeOfArr"]))
+                # Beginning of recent flight Scheduled Time
+                datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentArri"]["scheduledTime"]))
                 formatted_date_time = datetime_obj.strftime("%I:%M %p")
                 detailsValues.append(formatted_date_time)
-            except:
-                detailsValues.append("N/A")
-            # End of Actual Time Of Departure
+                # End of recent flight Scheduled Time
 
-            detailsValues.append(new_data[label]["recentArri"]["lang"]["en"]["flightStatus"])
-            detailsValues.append(new_data[label]["recentArri"]["lang"]["en"]["originCountry"])
+                # Beginning of Actual Time Of Departure
+                try:
+                    datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentArri"]["actualTimeOfArr"]))
+                    formatted_date_time = datetime_obj.strftime("%I:%M %p")
+                    detailsValues.append(formatted_date_time)
+                except:
+                    detailsValues.append("N/A")
+                # End of Actual Time Of Departure
 
-            for index, d in enumerate(details):
-                description = description + (d + " : " + str(detailsValues[index]) + "\n")
+                detailsValues.append(new_data[label]["recentArri"]["lang"]["en"]["flightStatus"])
+                detailsValues.append(new_data[label]["recentArri"]["lang"]["en"]["originCountry"])
 
+                for index, d in enumerate(details):
+                    description = description + (d + " : " + str(detailsValues[index]) + "\n")
+            else:
+                description = description + ("No recent arrival for today." + "\n")
+            
             labels.append(description)
 
         mplcursors.cursor(scatter, hover=True).connect("add", lambda sel: sel.annotation.set_text(labels[sel.target.index]))
