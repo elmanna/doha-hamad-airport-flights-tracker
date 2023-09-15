@@ -41,15 +41,14 @@ Before running the application, ensure you have the following prerequisites inst
 
 #The application will start retrieving real-time flight data and display it in a graphical user interface.
 
-Explore the following features in the application:
-    ```
-    Top 5 airlines with the highest flight counts.
-    Busiest hours for departures and arrivals.
-    Detailed flight information for each airline, accessible by hovering over airline data points.
-    ```
+## Explore the following features in the application:
+- Top 5 airlines with the highest flight counts.
+- Busiest hours for departures and arrivals.
+- Detailed flight information for each airline, accessible by hovering over airline data points.
 
-**Contributing**
-*If you would like to contribute to this project, please follow these steps:
+##Contributing
+
+If you would like to contribute to this project, please follow these steps:
 
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
@@ -58,8 +57,8 @@ Explore the following features in the application:
 5. Create a pull request to merge your changes into the main repository.
 
 
-**License**
-*This project is licensed under the MIT License - see the LICENSE file for details.
+##License
+- This project is licensed under the MIT License - see the LICENSE file for details.
 
-**Acknowledgments**
-*Special thanks to the Doha Hamad Airport for providing flight data through their web services.
+##Acknowledgments
+- Special thanks to the Doha Hamad Airport for providing flight data through their web services.
