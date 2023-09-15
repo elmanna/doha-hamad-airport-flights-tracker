@@ -27,15 +27,20 @@ Before running the application, ensure you have the following prerequisites inst
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/doha-hamad-airport-flights-tracker.git
+   git clone https://github.com/elmanna/doha-hamad-airport-flights-tracker.git
 
 
 2. Navigate to the project directory:
-    ```cd doha-hamad-airport-flights-tracker
+    ```bash
+    cd doha-hamad-airport-flights-tracker
 
 3. Run the application:
-    ```python main.py
+    ```bash
+    python main.py
+
+    ```
     The application will start retrieving real-time flight data and display it in a graphical user interface.
+    ```    
 
 Explore the following features in the application:
     ```
