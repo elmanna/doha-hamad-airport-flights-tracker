@@ -38,9 +38,8 @@ Before running the application, ensure you have the following prerequisites inst
     ```bash
     python main.py
 
-    ```
-    The application will start retrieving real-time flight data and display it in a graphical user interface.
-    ```    
+
+#The application will start retrieving real-time flight data and display it in a graphical user interface.
 
 Explore the following features in the application:
     ```
