@@ -4,11 +4,14 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import mplcursors
 
+
+
+
 dayHours = [
-    "1:00AM", "2:00AM", "3:00AM", "4:00AM", "5:00AM", "6:00AM", "7:00AM", "8:00AM",
-    "9:00AM", "10:00AM", "11:00AM", "12:00PM", "1:00PM", "2:00PM", "3:00PM",
-    "4:00PM", "5:00PM", "6:00PM", "7:00PM", "8:00PM", "9:00PM", "10:00PM",
-    "11:00PM", "12:00PM"
+    "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM",
+    "9AM", "1AM", "11AM", "12PM", "1PM", "2PM", "3PM",
+    "4:00PM", "5:00PM", "6:00PM", "7:00PM", "8PM", "9PM", "10PM",
+    "11PM", "12PM"
 ]
 
 def update_depart_plot(frame, fig, ax, queue):
@@ -36,18 +39,19 @@ def update_depart_plot(frame, fig, ax, queue):
                 continue
             FlightsCountered.append(int(new_data[airline]["flightsCountered"]))
 
-        scatter = ax.scatter(airlines, FlightsCountered, s=sizes, c=colors, vmin=0, vmax=100)
+        scatter = ax.scatter(airlines, FlightsCountered, marker='2', s=sizes, c='red', vmin=0, vmax=100)
+
         for label in airlines:
             if label == "busiestHours":
                 continue
-            details = ["Airline", "Last Flight For Today", "Scheduled Time", "Flights Countered"]  # Order must meet the detailsValues
+            details = ["Last Flight For Today", "Scheduled Time", "Flights Countered"]  # Order must meet the detailsValues
             detailsValues = []
-            detailsValues.append(new_data[label]["lang"]["en"]["airlineName"])
+            # detailsValues.append(new_data[label]["lang"]["en"]["airlineName"])
             detailsValues.append(new_data[label]["flightNumber"])
 
             # Beginning of flight Scheduled Time
             datetime_obj = datetime.fromtimestamp(int(new_data[label]["scheduledTime"]))
-            formatted_date_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+            formatted_date_time = datetime_obj.strftime("%I:%M %p")
             detailsValues.append(formatted_date_time)
             # End of flight Scheduled Time
 
@@ -59,7 +63,7 @@ def update_depart_plot(frame, fig, ax, queue):
 
             description = description + (" -------Most Recent Departure-------" + "\n")
 
-            details = ["FlightNumber", "Scheduled Time", "Actual Time Of Departure", "Flight Status",
+            details = ["Flight Number", "Scheduled Time", "Actual Time Of Departure", "Flight Status",
                        "Destination Country"]  # Order must meet the detailsValues
             detailsValues = []
 
@@ -67,14 +71,14 @@ def update_depart_plot(frame, fig, ax, queue):
 
             # Beginning of recent flight Scheduled Time
             datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentDep"]["scheduledTime"]))
-            formatted_date_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+            formatted_date_time = datetime_obj.strftime("%I:%M %p")
             detailsValues.append(formatted_date_time)
             # End of recent flight Scheduled Time
 
             # Beginning of Actual Time Of Departure
             try:
                 datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentDep"]["actualTimeOfDep"]))
-                formatted_date_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+                formatted_date_time = datetime_obj.strftime("%I:%M %p")
                 detailsValues.append(formatted_date_time)
             except:
                 detailsValues.append("N/A")
@@ -89,7 +93,7 @@ def update_depart_plot(frame, fig, ax, queue):
             labels.append(description)
 
         mplcursors.cursor(scatter, hover=True).connect("add", lambda sel: sel.annotation.set_text(labels[sel.target.index]))
-        ax.set(xlabel="Today(Top 5 Airlines Departure)", ylabel="Flights Countered",
+        ax.set(xlabel="Today(Top 5 Airlines Departure - Hover over shape for details)", ylabel="Flights Countered",
                title="Departures Today (" + datetime.today().strftime('%Y-%m-%d %H:%M:%S') + ") (updates every 10s)")
 
         plt.xticks(fontsize=10)
@@ -121,18 +125,21 @@ def update_arriv_plot(frame, fig, ax, queue):
 
         ax.clear()
 
-        scatter = ax.scatter(airlines, FlightsCountered, s=sizes, c=colors, vmin=0, vmax=100)
+        scatter = ax.scatter(airlines, FlightsCountered, marker='2', s=sizes, c='blue', vmin=0, vmax=100)
+
+
+
         for label in airlines:
             if label == "busiestHours":
                 continue
-            details = ["Airline", "Last Flight For Today", "Scheduled Time", "flightsCountered"]  # Order must meet the detailsValues
+            details = ["Last Flight For Today", "Scheduled Time", "flightsCountered"]  # Order must meet the detailsValues
             detailsValues = []
             detailsValues.append(new_data[label]["lang"]["en"]["airlineName"])
             detailsValues.append(new_data[label]["flightNumber"])
 
             # Beginning of flight Scheduled Time
             datetime_obj = datetime.fromtimestamp(int(new_data[label]["scheduledTime"]))
-            formatted_date_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+            formatted_date_time = datetime_obj.strftime("%I:%M %p")
             detailsValues.append(formatted_date_time)
             # End of flight Scheduled Time
 
@@ -144,7 +151,7 @@ def update_arriv_plot(frame, fig, ax, queue):
 
             description = description + (" -------Most Recent Arrival-------" + "\n")
 
-            details = ["FlightNumber", "Scheduled Time", "Actual Time Of Arrival", "Flight Status",
+            details = ["Flight Number", "Scheduled Time", "Actual Time Of Arrival", "Flight Status",
                        "Origin Country"]  # Order must meet the detailsValues
             detailsValues = []
 
@@ -152,14 +159,14 @@ def update_arriv_plot(frame, fig, ax, queue):
 
             # Beginning of recent flight Scheduled Time
             datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentArri"]["scheduledTime"]))
-            formatted_date_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+            formatted_date_time = datetime_obj.strftime("%I:%M %p")
             detailsValues.append(formatted_date_time)
             # End of recent flight Scheduled Time
 
             # Beginning of Actual Time Of Departure
             try:
                 datetime_obj = datetime.fromtimestamp(int(new_data[label]["recentArri"]["actualTimeOfArr"]))
-                formatted_date_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+                formatted_date_time = datetime_obj.strftime("%I:%M %p")
                 detailsValues.append(formatted_date_time)
             except:
                 detailsValues.append("N/A")
@@ -174,7 +181,7 @@ def update_arriv_plot(frame, fig, ax, queue):
             labels.append(description)
 
         mplcursors.cursor(scatter, hover=True).connect("add", lambda sel: sel.annotation.set_text(labels[sel.target.index]))
-        ax.set(xlabel="Today(Top 5 Airlines Arrival)", ylabel="Flights Countered",
+        ax.set(xlabel="Today(Top 5 Airlines Arrival - Hover over shape for details)", ylabel="Flights Countered",
                title="Arrivals Today (" + datetime.today().strftime('%Y-%m-%d %H:%M:%S') + ") (updates every 10s)")
 
         plt.xticks(fontsize=10)
