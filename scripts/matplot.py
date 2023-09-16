@@ -119,7 +119,6 @@ def update_arriv_plot(frame, fig, ax, queue):
         airlines = list(new_data.keys())
         labels = []
         sizes = np.random.uniform(50, 100, len(airlines))
-        colors = np.random.uniform(1, 255, len(airlines))
         FlightsCountered = []
 
         for airline in airlines:
@@ -129,16 +128,15 @@ def update_arriv_plot(frame, fig, ax, queue):
 
         ax.clear()
 
-        scatter = ax.scatter(airlines, FlightsCountered, marker='2', s=sizes, c='blue', vmin=0, vmax=100)
+        scatter = ax.scatter(airlines, FlightsCountered, marker='2', s=sizes, c='blue')
 
 
 
         for label in airlines:
             if label == "busiestHours":
                 continue
-            details = ["Last Flight For Today", "Scheduled Time", "flightsCountered"]  # Order must meet the detailsValues
+            details = ["Last Flight For Today", "Scheduled Time", "Flights Countered"]  # Order must meet the detailsValues
             detailsValues = []
-            detailsValues.append(new_data[label]["lang"]["en"]["airlineName"])
             detailsValues.append(new_data[label]["flightNumber"])
 
             # Beginning of flight Scheduled Time
