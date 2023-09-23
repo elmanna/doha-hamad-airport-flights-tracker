@@ -6,10 +6,9 @@ import mplcursors
 
 
 
-
 dayHours = [
     "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM",
-    "9AM", "1AM", "11AM", "12PM", "1PM", "2PM", "3PM",
+    "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM",
     "4:00PM", "5:00PM", "6:00PM", "7:00PM", "8PM", "9PM", "10PM",
     "11PM", "12PM"
 ]
@@ -131,7 +130,6 @@ def update_arriv_plot(frame, fig, ax, queue):
         scatter = ax.scatter(airlines, FlightsCountered, marker='2', s=sizes, c='blue')
 
 
-
         for label in airlines:
             if label == "busiestHours":
                 continue
@@ -208,11 +206,13 @@ def update_busiest_hours_plot(frame, fig, ax, depBusiestHoursQueue, arrBusiestHo
 
     if arrBusiestHours and depBusiestHours:
         ax.clear()
+
         ax.plot(dayHours[:len(arrBusiestHours)], arrBusiestHours, marker='o',
                 linestyle='-', label="Arrival", color='blue')
 
         ax.plot(dayHours[:len(depBusiestHours)], depBusiestHours, marker='o',
                 linestyle='-', label="Departure", color='red')
+        
 
         ax.set(ylabel="Number of Flights",
                xlabel="(Busiest Hours for Departure/Arrival Flights) Today(" + datetime.today().strftime('%Y-%m-%d %H:%M:%S') + ") (updates every 10s)")
